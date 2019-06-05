@@ -1,0 +1,14 @@
+[2019-06-05T17:19:46.819] [ERROR] ValidationError - Resource Patient is INVALID
+[2019-06-05T17:19:46.819] [ERROR] ValidationError - Amount of found errors: 1
+[2019-06-05T17:19:46.819] [ERROR] ValidationError - Error message:  should NOT have additional properties
+[2019-06-05T17:19:46.819] [ERROR] ValidationError - { additionalProperty: 'obosralsa' }
+[2019-06-05T17:19:46.819] [ERROR] ValidationError - Data path: 
+[2019-06-05T17:19:46.819] [ERROR] ValidationError - Schema path: #/additionalProperties
+[2019-06-05T17:19:46.819] [ERROR] ValidationError - Error keyword: additionalProperties
+[2019-06-05T17:23:19.862] [ERROR] ValidationError - Resource Patient is INVALID
+[2019-06-05T17:23:19.862] [ERROR] ValidationError - Amount of found errors: 1
+[2019-06-05T17:23:19.862] [ERROR] ValidationError - Error message:  should NOT have additional properties
+[2019-06-05T17:23:19.862] [ERROR] ValidationError - { additionalProperty: 'obosralsa' }
+[2019-06-05T17:23:19.862] [ERROR] ValidationError - Data path: 
+[2019-06-05T17:23:19.862] [ERROR] ValidationError - Schema path: #/additionalProperties
+[2019-06-05T17:23:19.863] [ERROR] ValidationError - Error keyword: additionalProperties

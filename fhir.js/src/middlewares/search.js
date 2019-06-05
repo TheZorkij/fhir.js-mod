@@ -120,7 +120,7 @@
       })());
     });
   };
-  var linearizeOne = function(k, v) {
+  var linearizeOne = function(k, v) {  //HANDLER ASSIGNMENT
     if (k === '$sort') {
       return handleSort(v);
     } else if (k === '$has') {
@@ -168,7 +168,7 @@
 
   var buildSearchParams = function(query) {
     var p, ps, value;
-    var excludeEncode = ['_include', '_revinclude', '_has']
+      var excludeEncode = ['_include', '_revinclude', '_has'];
     ps = (function() {
       var i, len, ref, results;
       ref = linearizeParams(query);
@@ -178,7 +178,7 @@
         if (excludeEncode.indexOf(p.param) === -1)
           value = encodeURIComponent(p.value);
         else
-          value = p.value
+            value = p.value;
         results.push([p.param, p.modifier, (p.param == '_has') ? ':' : '=', p.operator, value].filter(identity).join(''));
       }
       return results;
@@ -195,7 +195,8 @@
   exports.$SearchParams = mw.$$Attr('url', function(args){
     var url = args.url;
     if(args.query){
-      var queryStr = buildSearchParams(args.query);
+        var queryStr = buildSearchParams(args.query);
+        console.log(url + '?' + queryStr);
       return url + "?" + queryStr;
     }
     return url;

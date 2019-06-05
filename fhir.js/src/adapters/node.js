@@ -40,6 +40,7 @@
                     console.log('DEBUG[node]: (response)', resp);
                 }
                 if (err || statusCode > 399) {deff.reject(resp);} else {deff.resolve(resp);}
+                console.log(resp.data);
             }) ;
             return deff.promise;
         }

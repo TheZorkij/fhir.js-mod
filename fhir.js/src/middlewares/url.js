@@ -46,6 +46,8 @@
             if(chain && tkn.includes('target.versionId') && !args.target.versionId){
                 return chain(args);
             }
+            //console.log((chain && (chain(args) + "/")) || ""); //-> address
+            console.log(buildPathPart(tkn, args));
             return ((chain && (chain(args) + "/")) || "") +  buildPathPart(tkn, args);
         };
         var ch = core.Attribute('url', new_chain);

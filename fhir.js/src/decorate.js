@@ -31,6 +31,8 @@
         }, function(err) {
             fail(err);
         });
+
+        
     };
     
     function fetchAll (searchParams){
@@ -51,7 +53,7 @@
                 ret.reject(err);
             }
         );
-          
+        //console.log(ret.promise);
         return ret.promise;
     };
 
@@ -109,7 +111,7 @@
           
         return ret.promise;
     };
-    
+
     function decorate (client, newAdapter) {
         fhirAPI = client;
         adapter = newAdapter;

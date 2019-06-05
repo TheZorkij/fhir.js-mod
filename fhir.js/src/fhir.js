@@ -14,7 +14,6 @@
 
     var cache = {};
 
-
     var fhir = function(cfg, adapter){
         var Middleware = M.Middleware;
         var $$Attr = M.$$Attr;
@@ -49,10 +48,10 @@
         var resourceHxPath = resourcePath.slash("_history");
         var vreadPath =  resourcePath.slash(":versionId || :resource.meta.versionId");
         var metaTarget = BaseUrl.slash(":target.resourceType || :target.type").slash(":target.id").slash(':target.versionId');
-        
         var ReturnHeader = $$Header('Prefer', 'return=representation');
 
         var $Paging = Middleware(query.$Paging);
+
 
         return decorate({
             conformance: GET.and(BaseUrl.slash("metadata")).end(http),
@@ -64,7 +63,8 @@
             resourceHistory: GET.and(resourceHxPath).and($Paging).end(http),
             read: GET.and(pt.$WithPatient).and(resourcePath).end(http),
             vread: GET.and(vreadPath).end(http),
-            "delete": DELETE.and(resourcePath).and(ReturnHeader).end(http),
+            "delete": DELETE.and(resourcePath ? resourcePath : resourceTypePath).and(query.$SearchParams).and(ReturnHeader).end(http),
+            //conditionalDelete: DELETE.and(resourceTypePath).and(query.$SearchParams).and(ReturnHeader).end(http), - redundant
             create: POST.and(resourceTypePath).and(ReturnHeader).end(http),
             validate: POST.and(resourceTypePath.slash("_validate")).end(http),
             meta: {
@@ -73,14 +73,15 @@
                 read: GET.and(metaTarget.slash("$meta")).end(http)
             },
             search: GET.and(resourceTypePath).and(pt.$WithPatient).and(query.$SearchParams).and($Paging).end(http),
-            update: PUT.and(resourcePath).and(ReturnHeader).end(http),
-            conditionalUpdate: PUT.and(resourceTypePath).and(query.$SearchParams).and(ReturnHeader).end(http),
+            update: PUT.and(resourcePath ? resourcePath : resourceTypePath).and(query.$SearchParams).and(ReturnHeader).end(http),
+            conditionalUpdate: PUT.and(resourceTypePath).and(query.$SearchParams).and(ReturnHeader).end(http), // redundant
             nextPage: GET.and(bundle.$$BundleLinkUrl("next")).end(http),
             // For previous page, bundle.link.relation can either have 'previous' or 'prev' values
             prevPage: GET.and(bundle.$$BundleLinkUrl("previous")).and(bundle.$$BundleLinkUrl("prev")).end(http),
             getBundleByUrl: GET.and(Path(":url")).end(http),
             resolve: GET.and(refs.resolve).end(http),
-            patch: PATCH.and(resourcePath).and($$Header('Content-Type', 'application/json-patch+json')).end(http)
+            patch: PATCH.and(resourcePath).and($$Header('Content-Type', 'application/json-patch+json')).end(http),
+            //conditionalPatch: PATCH.and(resourceTypePath).and(query.$SearchParams).and(ReturnHeader).end(http) - redundant
         }, adapter);
     };
     module.exports = fhir;
