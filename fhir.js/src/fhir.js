@@ -63,8 +63,16 @@
             resourceHistory: GET.and(resourceHxPath).and($Paging).end(http),
             read: GET.and(pt.$WithPatient).and(resourcePath).end(http),
             vread: GET.and(vreadPath).end(http),
+            /**
+             * Реализует операции delete и conditionalDelete
+             *
+             * @author Михаил Правиленко <zorkijofficial@gmail.com>
+             * @param {string} resourcePath - адрес идентификатора ресурса
+             *        {string} resourceTypePath - адрес типа ресурса
+             *        {object} query.$SearchParams - параметры для поиска по ресурсам
+             */
             "delete": DELETE.and(resourcePath ? resourcePath : resourceTypePath).and(query.$SearchParams).and(ReturnHeader).end(http),
-            //conditionalDelete: DELETE.and(resourceTypePath).and(query.$SearchParams).and(ReturnHeader).end(http), - redundant
+            conditionalDelete: DELETE.and(resourceTypePath).and(query.$SearchParams).and(ReturnHeader).end(http), // redundant
             create: POST.and(resourceTypePath).and(ReturnHeader).end(http),
             validate: POST.and(resourceTypePath.slash("_validate")).end(http),
             meta: {
@@ -73,6 +81,14 @@
                 read: GET.and(metaTarget.slash("$meta")).end(http)
             },
             search: GET.and(resourceTypePath).and(pt.$WithPatient).and(query.$SearchParams).and($Paging).end(http),
+            /**
+             * Реализует операции update и conditionalUpdate
+             *
+             * @author Михаил Правиленко <zorkijofficial@gmail.com>
+             * @param {string} resourcePath - адрес идентификатора ресурса
+             *        {string} resourceTypePath - адрес типа ресурса
+             *        {object} query.$SearchParams - параметры для поиска по ресурсам
+             */
             update: PUT.and(resourcePath ? resourcePath : resourceTypePath).and(query.$SearchParams).and(ReturnHeader).end(http),
             conditionalUpdate: PUT.and(resourceTypePath).and(query.$SearchParams).and(ReturnHeader).end(http), // redundant
             nextPage: GET.and(bundle.$$BundleLinkUrl("next")).end(http),

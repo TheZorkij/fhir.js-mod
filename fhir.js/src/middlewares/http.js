@@ -21,7 +21,12 @@
 
     var toJson = function(x){
         //console.log(JSON.stringify(x)); //input resource
-        //console.log(x.data);
+        /**
+         * Валидирует ресурс для передачи на сервер и выводит результат валидации
+         *
+         * @author Михаил Правиленко <zorkijofficial@gmail.com>
+         * @param {object} x - ресурс
+         */
         console.log(resourceValidation.validateResource(x));
         return (utils.type(x) == 'object' || utils.type(x) == 'array') ? JSON.stringify(x) : x;
     };
