@@ -20,7 +20,7 @@ var args = {
     resource: {
         resourceType: "Patient",
         name: [{family: 'xxx'}],
-//        obosralsa: true,
+        obosralsa: true,
     },
     //query: {
     //    gender: '1'
@@ -155,8 +155,8 @@ const conpatch = function() {
 //console.log(resourceValidation.validateResource(args));
 //conpatch();
 //reader();
-//make();
-getPatients();
+make();
+//getPatients();
 //condup();
 //update();
 //del();
